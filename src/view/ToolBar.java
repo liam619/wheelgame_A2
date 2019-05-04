@@ -13,13 +13,13 @@ import model.interfaces.GameEngine;
 public class ToolBar extends JToolBar{
     
     public ToolBar(GameEngine gameEngine) {
-        GridLayout layout = new GridLayout(0, 4, 20, 20);
+        GridLayout layout = new GridLayout(0, 3, 20, 20);
         setLayout(layout);
         
         JButton spin = new JButton("SPIN!");
         
-        JButton addPlayers = new JButton("Add Players");
-        addPlayers.addActionListener(new ActionListener() {
+        JButton players = new JButton("Players");
+        players.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -28,12 +28,10 @@ public class ToolBar extends JToolBar{
             }
         });
         
-        JButton viewPlayers = new JButton("View Players");
         JButton lastWin = new JButton("Previous Result");
         
         add(spin);
-        add(addPlayers);
-        add(viewPlayers);
+        add(players);
         add(lastWin);
         
         setFloatable(false);
