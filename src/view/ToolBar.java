@@ -7,9 +7,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+import model.interfaces.GameEngine;
+
+@SuppressWarnings("serial")
 public class ToolBar extends JToolBar{
     
-    public ToolBar() {
+    public ToolBar(GameEngine gameEngine) {
         GridLayout layout = new GridLayout(0, 4, 20, 20);
         setLayout(layout);
         
@@ -20,7 +23,7 @@ public class ToolBar extends JToolBar{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                PlayerGUI pg = new PlayerGUI();
+                PlayerGUI pg = new PlayerGUI(gameEngine);
                 pg.setVisible(true);
             }
         });

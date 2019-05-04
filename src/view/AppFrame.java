@@ -4,14 +4,20 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
+import model.GameEngineImpl;
+import model.interfaces.GameEngine;
+
+@SuppressWarnings("serial")
 public class AppFrame extends JFrame{
 
     public AppFrame() {
         super("Wheel Game");
         
+        GameEngine gameEngine = new GameEngineImpl();
+        
         MenuBar mb = new MenuBar();
         StatusBar sb = new StatusBar();
-        ToolBar tb = new ToolBar();
+        ToolBar tb = new ToolBar(gameEngine);
         
         setJMenuBar(mb);
         add(tb, BorderLayout.NORTH);
