@@ -17,5 +17,4 @@ public class GetAllPlayer {
         
         return gameEngine.getAllPlayers();
     }
-
 }
