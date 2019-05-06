@@ -14,18 +14,27 @@ public class AppFrame extends JFrame{
         super("Wheel Game");
         
         GameEngine gameEngine = new GameEngineImpl();
+        GameEngineCallbackImpl gameEngineCallback = new GameEngineCallbackImpl();
+        GameEngineCallbackGUI gameEngineGUI = new GameEngineCallbackGUI();
         
         MenuBar mb = new MenuBar();
         StatusBar sb = new StatusBar();
         ToolBar tb = new ToolBar(gameEngine);
+        WheelDisplay wd = new WheelDisplay();
+        
+        gameEngine.addGameEngineCallback(gameEngineGUI);
+        gameEngine.addGameEngineCallback(gameEngineCallback);
         
         setJMenuBar(mb);
         add(tb, BorderLayout.NORTH);
+        add(wd, BorderLayout.CENTER);
         add(sb, BorderLayout.SOUTH);
         
         pack();
         setVisible(true);
-        setBounds(100, 100, 650, 500);
+        setSize(700, 700);
+//        setMinimumSize(getSize());
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 }
