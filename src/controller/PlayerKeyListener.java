@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JTextField;
 
+import model.StoreValue;
 import model.interfaces.Player;
 
 public class PlayerKeyListener implements KeyListener {

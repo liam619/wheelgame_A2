@@ -11,11 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controller.ConstantVariable;
 import controller.PlayerActionListener;
 import controller.PlayerItemListener;
 import controller.PlayerKeyListener;
-import controller.StoreValue;
+import model.ConstantVariable;
+import model.StoreValue;
 import model.enumeration.BetType;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;

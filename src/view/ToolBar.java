@@ -5,9 +5,9 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-import controller.ConstantVariable;
 import controller.PlayerActionListener;
-import controller.StoreValue;
+import model.ConstantVariable;
+import model.StoreValue;
 import model.interfaces.GameEngine;
 
 @SuppressWarnings("serial")

@@ -10,9 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.AddPlayers;
-import controller.ConstantVariable;
 import controller.PlayerActionListener;
 import controller.PlayerKeyListener;
+import model.ConstantVariable;
 import model.interfaces.GameEngine;
 
 @SuppressWarnings("serial")

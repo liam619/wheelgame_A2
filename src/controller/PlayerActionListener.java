@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import model.ConstantVariable;
+import model.StoreValue;
 import model.interfaces.GameEngine;
 import view.NewPlayerForm;
 import view.PlayerGUI;
