@@ -15,35 +15,34 @@ import controller.PlayerKeyListener;
 import model.ConstantVariable;
 import model.interfaces.GameEngine;
 
-@SuppressWarnings("serial")
-public class NewPlayerForm extends JFrame implements ConstantVariable {
+public class NewPlayerForm implements ConstantVariable {
 
-    public NewPlayerForm(GameEngine gameEngine) {
+    public NewPlayerForm(GameEngine gameEngine, PlayerGUI playerGUI) {
         JFrame jframe = new JFrame();
         JPanel contentPanel = new JPanel(new GridLayout(2, 0));
-        JPanel panel1 = new JPanel(new GridLayout(2, 2));
-        JPanel panel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel infoPanel = new JPanel(new GridLayout(2, 2));
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        panel1.add(new JLabel("Player Name:"));
-        JTextField name = new JTextField();
-        panel1.add(name);
-        panel1.add(new JLabel("Initial Points:"));
-        JTextField point = new JTextField();
-        panel1.add(point);
+        infoPanel.add(new JLabel("Player Name:"));
+        JTextField nameJTF = new JTextField();
+        infoPanel.add(nameJTF);
+        infoPanel.add(new JLabel("Initial Points:"));
+        JTextField pointJTF = new JTextField();
+        infoPanel.add(pointJTF);
         
-        point.addKeyListener(new PlayerKeyListener(null, null, null));
+        pointJTF.addKeyListener(new PlayerKeyListener());
 
         JButton okBtn = new JButton("OK");
-        okBtn.addActionListener(new AddPlayers(name, point, jframe, gameEngine));
-        panel2.add(okBtn);
+        okBtn.addActionListener(new AddPlayers(nameJTF, pointJTF, jframe, playerGUI, gameEngine));
+        btnPanel.add(okBtn);
 
         JButton cancelBtn = new JButton("Cancel");
         cancelBtn.setActionCommand(CLOSE_FRAME);
         cancelBtn.addActionListener(new PlayerActionListener(jframe));
-        panel2.add(cancelBtn);
+        btnPanel.add(cancelBtn);
         
-        contentPanel.add(panel1);
-        contentPanel.add(panel2);
+        contentPanel.add(infoPanel);
+        contentPanel.add(btnPanel);
 
         jframe.setVisible(true);
         jframe.add(contentPanel);

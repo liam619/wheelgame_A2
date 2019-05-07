@@ -10,26 +10,28 @@ import javax.swing.JTextField;
 import model.SimplePlayer;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
+import view.PlayerGUI;
 
 public class AddPlayers implements ActionListener {
 
     private GameEngine gameEngine;
-    private JTextField name;
-    private JTextField point;
-    private JFrame frame;
+    private JTextField nameJTF;
+    private JTextField pointJTF;
+    private JFrame jframe;
     private int idCount;
+    private PlayerGUI playerGUI;
 
-    public AddPlayers(JTextField name, JTextField point, JFrame frame, GameEngine gameEngine) {
-        this.name = name;
-        this.point = point;
-        this.frame = frame;
+    public AddPlayers(JTextField nameJTF, JTextField pointJTF, JFrame jframe, PlayerGUI playerGUI, GameEngine gameEngine) {
+        this.nameJTF = nameJTF;
+        this.pointJTF = pointJTF;
+        this.jframe = jframe;
         this.gameEngine = gameEngine;
+        this.playerGUI = playerGUI;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        System.out.println(e.getActionCommand(););
-        initialize(name.getText(), point.getText());
+        initialize(nameJTF.getText(), pointJTF.getText());
     }
 
     public void initialize(String name, String point) {
@@ -42,7 +44,8 @@ public class AddPlayers implements ActionListener {
 
             this.gameEngine.addPlayer(ply);
             
-            frame.setVisible(false);
+            playerGUI.redraw();
+            jframe.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Name or Point cannot be empty!", "ERROR OCCUR!", 0);
         }

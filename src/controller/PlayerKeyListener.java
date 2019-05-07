@@ -20,6 +20,9 @@ public class PlayerKeyListener implements KeyListener {
         this.jTextF = jTextF;
         this.st = st;
     }
+    
+    public PlayerKeyListener() {
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {

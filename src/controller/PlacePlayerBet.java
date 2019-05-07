@@ -10,9 +10,6 @@ import model.interfaces.Player;
 
 public class PlacePlayerBet {
 
-//    private HashMap<Player, BetType> playerBetType = new HashMap<Player, BetType>();
-//    private HashMap<Player, String> playerBetAmt = new HashMap<Player, String>();
-
     public void init(GameEngine gameEngine, HashMap<Player, BetType> playerBetType, HashMap<Player, String> playerBetAmt) {
 
         boolean verify = false;
@@ -22,7 +19,6 @@ public class PlacePlayerBet {
         for (Player ply : playerBetType.keySet()) {
 
             int betAmt = (playerBetAmt.get(ply) != null) ? Integer.parseInt(playerBetAmt.get(ply)) : 0;
-//            System.out.println(betAmt +"|"+ verify);
             if (betAmt > 0) {
                 verify = gameEngine.placeBet(ply, betAmt, playerBetType.get(ply));
             }
@@ -34,12 +30,4 @@ public class PlacePlayerBet {
             JOptionPane.showMessageDialog(null, "Insufficient fund!", "Failed!", 0);
         }
     }
-
-//    public void setBetType(Player ply, BetType betType) {
-//        this.playerBetType.put(ply, betType);
-//    }
-//    
-//    public void setBetAmt(Player ply, String betAmt) {
-//        this.playerBetAmt.put(ply, betAmt);
-//    }
 }

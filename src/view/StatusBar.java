@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+@SuppressWarnings("serial")
 public class StatusBar extends JPanel {
     
     private JLabel status1, status2, status3;

@@ -16,7 +16,14 @@ public class PlayerActionListener implements ActionListener, ConstantVariable {
     private GameEngine gameEngine;
     private JFrame jframe;
     private StoreValue st;
-    
+    private PlayerGUI playerGUI;
+
+    public PlayerActionListener(GameEngine gameEngine, StoreValue st, PlayerGUI playerGUI) {
+        this.gameEngine = gameEngine;
+        this.st = st;
+        this.playerGUI = playerGUI;
+    }
+
     public PlayerActionListener(GameEngine gameEngine, StoreValue st) {
         this.gameEngine = gameEngine;
         this.st = st;
@@ -35,7 +42,7 @@ public class PlayerActionListener implements ActionListener, ConstantVariable {
             new PlayerGUI(gameEngine, st);
             break;
         case NEW_PLAYER:
-            new NewPlayerForm(gameEngine);
+            new NewPlayerForm(gameEngine, playerGUI);
             break;
         case PLACE_BET:
             PlacePlayerBet placeBet = new PlacePlayerBet();

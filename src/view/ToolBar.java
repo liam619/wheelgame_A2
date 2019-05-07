@@ -19,17 +19,17 @@ public class ToolBar extends JToolBar implements ConstantVariable {
         GridLayout layout = new GridLayout(0, 3, 20, 20);
         setLayout(layout);
         
-        JButton spin = new JButton("SPIN!");
+        JButton spinBtn = new JButton("SPIN!");
         
         JButton plyBtn = new JButton("Players");
         plyBtn.setActionCommand(VIEW_PLAYER);
         plyBtn.addActionListener(new PlayerActionListener(gameEngine, st));
         
-        JButton lastWin = new JButton("Previous Result");
+        JButton lastWinBtn = new JButton("Previous Result");
         
-        add(spin);
+        add(spinBtn);
         add(plyBtn);
-        add(lastWin);
+        add(lastWinBtn);
         
         setFloatable(false);
     }
