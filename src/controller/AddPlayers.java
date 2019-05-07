@@ -28,6 +28,7 @@ public class AddPlayers implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+//        System.out.println(e.getActionCommand(););
         initialize(name.getText(), point.getText());
     }
 
