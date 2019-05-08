@@ -8,25 +8,33 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import model.interfaces.Slot;
+
 @SuppressWarnings("serial")
 public class StatusBar extends JPanel {
     
-    private JLabel status1, status2, status3;
+    private JLabel statusColor, statusNumber;
 
     public StatusBar() {
         
-        status1 = new JLabel("Winner Name : ");
-        status2 = new JLabel("Winning Slot : ");
-        status3 = new JLabel("Reward : ");
+        statusColor = new JLabel("Winning Color : ");
+        statusNumber = new JLabel("Winning Number : ");
         
         Border border = BorderFactory.createLineBorder(Color.BLACK);
-        status1.setBorder(border);
-        status2.setBorder(border);
-        status3.setBorder(border);
+        statusColor.setBorder(border);
+        statusNumber.setBorder(border);
         
         setLayout(new GridLayout(1, 3));
-        add(status1);
-        add(status2);
-        add(status3);
+        add(statusColor);
+        add(statusNumber);
+    }
+    
+    public void setWinColor(String color) {
+        System.out.println(color);
+        this.statusColor.setText("Winning Color : " + color);
+    }
+    
+    public void setWinNumber(String number) {
+        statusNumber.setText("Winning Number : " + number);
     }
 }

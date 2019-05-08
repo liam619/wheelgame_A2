@@ -63,12 +63,13 @@ public class DisplayResult implements ConstantVariable {
 
         contentPanel.add(resultPanel, BorderLayout.PAGE_START);
         contentPanel.add(btnPanel, BorderLayout.PAGE_END);
-        
         jframe.add(contentPanel);
+        
+        jframe.pack();
         jframe.setVisible(true);
         jframe.setTitle("Final Result!");
         jframe.setResizable(true);
-        jframe.setBounds(100, 100, 550, 150);
+        jframe.setLocationRelativeTo(null);
     }
 
     public void getTableData() {

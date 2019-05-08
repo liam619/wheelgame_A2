@@ -8,6 +8,12 @@ import view.interfaces.GameEngineCallback;
 
 public class GameEngineCallbackGUI implements GameEngineCallback{
 
+    private StatusBar statusBar;
+    
+    public GameEngineCallbackGUI(StatusBar statusBar) {
+        this.statusBar = statusBar;
+    }
+
     @Override
     public void nextSlot(Slot slot, GameEngine engine) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -21,11 +27,13 @@ public class GameEngineCallbackGUI implements GameEngineCallback{
 
     @Override
     public void result(Slot winningSlot, GameEngine engine) {
-        DisplayResult dr = new DisplayResult(winningSlot, engine);
-        System.out.println("result");
+        DisplayResult display = new DisplayResult(winningSlot, engine);
+        
+        statusBar.setWinColor(String.valueOf(winningSlot.getColor()));
+        statusBar.setWinNumber(String.valueOf(winningSlot.getNumber()));
         
         engine.calculateResult(winningSlot);
         
-        dr.initFrame();
+        display.initFrame();
     }
 }
