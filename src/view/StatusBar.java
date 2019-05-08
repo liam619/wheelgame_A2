@@ -8,17 +8,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import model.interfaces.Slot;
+import model.ConstantVariable;
 
 @SuppressWarnings("serial")
-public class StatusBar extends JPanel {
+public class StatusBar extends JPanel implements ConstantVariable {
     
     private JLabel statusColor, statusNumber;
 
     public StatusBar() {
         
-        statusColor = new JLabel("Winning Color : ");
-        statusNumber = new JLabel("Winning Number : ");
+        statusColor = new JLabel(WIN_COLOR);
+        statusNumber = new JLabel(WIN_NUMBER);
         
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         statusColor.setBorder(border);
@@ -30,11 +30,10 @@ public class StatusBar extends JPanel {
     }
     
     public void setWinColor(String color) {
-        System.out.println(color);
-        this.statusColor.setText("Winning Color : " + color);
+        this.statusColor.setText(WIN_COLOR.concat(color));
     }
     
     public void setWinNumber(String number) {
-        statusNumber.setText("Winning Number : " + number);
+        statusNumber.setText(WIN_NUMBER.concat(number));
     }
 }

@@ -7,14 +7,16 @@ import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import model.ConstantVariable;
+
 @SuppressWarnings("serial")
-public class WheelDisplay extends JPanel {
+public class WheelDisplay extends JPanel implements ConstantVariable {
 
     private Image image;
     private ImageObserver imageObserver;
 
     public WheelDisplay() {
-        ImageIcon icon = new ImageIcon("img/Basic_roulette_wheel_1024x1024.png");
+        ImageIcon icon = new ImageIcon(IMAGE_LOCATION);
         image = icon.getImage();
         imageObserver = icon.getImageObserver();
     }

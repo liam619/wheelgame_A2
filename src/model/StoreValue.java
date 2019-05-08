@@ -30,5 +30,9 @@ public class StoreValue {
     public HashMap<Player, String> getBetAmt() {
         return this.playerBetAmt;
     }
-
+    
+    public void clearBet() {
+        this.playerBetAmt.clear();
+        this.playerBetType.clear();
+    }
 }

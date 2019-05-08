@@ -43,10 +43,12 @@ public class NewPlayerForm implements ConstantVariable {
         
         contentPanel.add(infoPanel);
         contentPanel.add(btnPanel);
-
-        jframe.setVisible(true);
         jframe.add(contentPanel);
+
+        jframe.pack();
+        jframe.setTitle(ADDNEWPLAYER_TITLE);
+        jframe.setVisible(true);
         jframe.setResizable(false);
-        jframe.setBounds(100, 100, 400, 150);
+        jframe.setLocationRelativeTo(null);
     }
 }

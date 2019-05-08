@@ -22,43 +22,45 @@ import model.interfaces.Player;
 
 public class PlayerGUI implements ConstantVariable {
 
+    private JFrame jframe;
     private JPanel plyTablePanel;
     private JPanel contentPanel;
     private GameEngine gameEngine;
     private StoreValue st;
-    
+
     public PlayerGUI(GameEngine gameEngine, StoreValue st) {
         this.gameEngine = gameEngine;
         this.st = st;
-        
-        JFrame jframe = new JFrame();
+
+        jframe = new JFrame();
         contentPanel = new JPanel(new GridLayout(2, 0));
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         JButton addNewPlayerBtn = new JButton("Add New Player");
         addNewPlayerBtn.setActionCommand(NEW_PLAYER);
         addNewPlayerBtn.addActionListener(new PlayerActionListener(gameEngine, st, this));
-        
+
         JButton setBetBtn = new JButton("Place Bet");
         setBetBtn.setActionCommand(PLACE_BET);
         setBetBtn.addActionListener(new PlayerActionListener(gameEngine, st));
-        
+
         JButton closeBtn = new JButton("Close");
         closeBtn.setActionCommand(CLOSE_FRAME);
         closeBtn.addActionListener(new PlayerActionListener(jframe));
-        
+
         btnPanel.add(addNewPlayerBtn);
         btnPanel.add(setBetBtn);
         btnPanel.add(closeBtn);
-        
+
         contentPanel.add(initPlayerTable());
         contentPanel.add(btnPanel);
-        
         jframe.add(contentPanel);
+
+        jframe.pack();
         jframe.setVisible(true);
-        jframe.setTitle("Player GUI");
-        // setResizable(false);
-        jframe.setBounds(100, 100, 800, 90);
+        jframe.setTitle(PLAYERGUI_TITLE);
+        jframe.setLocationRelativeTo(null);
+        jframe.setResizable(false);
     }
 
     public JPanel initPlayerTable() {
@@ -66,12 +68,14 @@ public class PlayerGUI implements ConstantVariable {
         Collection<Player> playerList = gameEngine.getAllPlayers();
 
         if (playerList.size() > 0) {
-            plyTablePanel.setLayout(new GridLayout(playerList.size(), 8));
+            plyTablePanel.setLayout(new GridLayout(playerList.size(), 10));
 
             for (Player ply : playerList) {
                 plyTablePanel.add(new JLabel("ID : " + ply.getPlayerId()));
-                plyTablePanel.add(new JLabel("Name : " + ply.getPlayerName()));
-                plyTablePanel.add(new JLabel("Points : " + String.valueOf(ply.getPoints())));
+                plyTablePanel.add(new JLabel("Name : "));
+                plyTablePanel.add(new JLabel(ply.getPlayerName()));
+                plyTablePanel.add(new JLabel("Points : "));
+                plyTablePanel.add(new JLabel(String.valueOf(ply.getPoints())));
 
                 plyTablePanel.add(new JLabel("Bet type : "));
                 JComboBox<BetType> comboBox = new JComboBox<BetType>(BetType.values());
@@ -88,14 +92,16 @@ public class PlayerGUI implements ConstantVariable {
         } else {
             plyTablePanel.add(new JLabel("No player in game."));
         }
-        
+
         return plyTablePanel;
     }
-    
+
     public void redraw() {
         contentPanel.remove(plyTablePanel);
         contentPanel.add(initPlayerTable(), 0, 0);
         contentPanel.revalidate();
         contentPanel.repaint();
+        jframe.pack();
+        jframe.setLocationRelativeTo(null);
     }
 }

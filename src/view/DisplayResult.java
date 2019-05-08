@@ -67,10 +67,10 @@ public class DisplayResult implements ConstantVariable {
         
         jframe.pack();
         jframe.setVisible(true);
-        jframe.setTitle("Final Result!");
+        jframe.setTitle(DISPLAYRESULT_TITLE);
         jframe.setResizable(true);
         jframe.setLocationRelativeTo(null);
-    }
+     }
 
     public void getTableData() {
 

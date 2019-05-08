@@ -1,23 +1,29 @@
 package view;
 
+import java.util.Collection;
+
 import javax.swing.SwingUtilities;
 
+import model.StoreValue;
 import model.interfaces.GameEngine;
+import model.interfaces.Player;
 import model.interfaces.Slot;
 import view.interfaces.GameEngineCallback;
 
-public class GameEngineCallbackGUI implements GameEngineCallback{
+public class GameEngineCallbackGUI implements GameEngineCallback {
 
     private StatusBar statusBar;
-    
-    public GameEngineCallbackGUI(StatusBar statusBar) {
+    private StoreValue storeValue;
+
+    public GameEngineCallbackGUI(StatusBar statusBar, StoreValue storeValue) {
         this.statusBar = statusBar;
+        this.storeValue = storeValue;
     }
 
     @Override
     public void nextSlot(Slot slot, GameEngine engine) {
         SwingUtilities.invokeLater(new Runnable() {
-            
+
             @Override
             public void run() {
                 System.out.println("next slot");
@@ -28,12 +34,24 @@ public class GameEngineCallbackGUI implements GameEngineCallback{
     @Override
     public void result(Slot winningSlot, GameEngine engine) {
         DisplayResult display = new DisplayResult(winningSlot, engine);
-        
+
         statusBar.setWinColor(String.valueOf(winningSlot.getColor()));
         statusBar.setWinNumber(String.valueOf(winningSlot.getNumber()));
-        
+
         engine.calculateResult(winningSlot);
-        
+
         display.initFrame();
+        resetBet(engine.getAllPlayers());
+    }
+
+    private void resetBet(Collection<Player> plyList) {
+
+        if (plyList.size() > 0) {
+            storeValue.clearBet();
+            
+            for (Player ply : plyList) {
+                ply.resetBet();
+            }
+        }
     }
 }
