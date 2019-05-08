@@ -48,6 +48,9 @@ public class PlayerActionListener implements ActionListener, ConstantVariable {
             PlacePlayerBet placeBet = new PlacePlayerBet();
             placeBet.init(gameEngine, st.getBetType(), st.getBetAmt());
             break;
+        case SPIN_WHEEL:
+            new SpinWheel(gameEngine);
+            break;
         case CLOSE_FRAME:
             this.jframe.setVisible(false);
             break;

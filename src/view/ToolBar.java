@@ -20,6 +20,8 @@ public class ToolBar extends JToolBar implements ConstantVariable {
         setLayout(layout);
         
         JButton spinBtn = new JButton("SPIN!");
+        spinBtn.setActionCommand(SPIN_WHEEL);
+        spinBtn.addActionListener(new PlayerActionListener(gameEngine, st));
         
         JButton plyBtn = new JButton("Players");
         plyBtn.setActionCommand(VIEW_PLAYER);

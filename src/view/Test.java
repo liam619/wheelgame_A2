@@ -25,6 +25,12 @@ public class Test extends JFrame {
 
     public static void main(String[] args) {
         
+        GameEngine ge = new GameEngineImpl();
+        
+        System.out.println(ge.getAllPlayers().size());
+        
+        
+        
     }
     
 }

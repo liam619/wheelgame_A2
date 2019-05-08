@@ -1,12 +1,19 @@
 package client;
 
+import javax.swing.SwingUtilities;
+
 import view.AppFrame;
 
 public class Application {
-    
-    public static void main(String [] args) {
-        
-        new AppFrame();
-    }
 
+    public static void main(String[] args) {
+
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                new AppFrame();
+            }
+        });
+    }
 }

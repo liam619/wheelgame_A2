@@ -22,8 +22,9 @@ public class AppFrame extends JFrame{
         ToolBar tb = new ToolBar(gameEngine);
         WheelDisplay wd = new WheelDisplay();
         
-        gameEngine.addGameEngineCallback(gameEngineGUI);
-        gameEngine.addGameEngineCallback(gameEngineCallback);
+        gameEngine.addGameEngineCallback(gameEngineGUI); // For GUI update
+        gameEngine.addGameEngineCallback(gameEngineCallback); // For Console display result
+        gameEngine.getWheelSlots();
         
         setJMenuBar(mb);
         add(tb, BorderLayout.NORTH);
