@@ -31,7 +31,6 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
                 System.out.println("next slot");
                 wheelDisplay.setDegree();
                 wheelDisplay.repaint();
-//                wheelDisplay.paintComponents(g);
             }
         });
     }

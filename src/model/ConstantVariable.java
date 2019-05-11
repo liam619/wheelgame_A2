@@ -27,4 +27,13 @@ public interface ConstantVariable {
     
     /** Image location **/
     public final static String IMAGE_LOCATION = "img/Basic_roulette_wheel_1024x1024.png";
+    
+    /** Size of roulette ball by % determine by the diameter of roulette **/
+    public final static double BALL_SIZE = 0.02;
+    
+    /** The position of ball on the roulette **/
+    public final static double BALL_POSITION = 0.9;
+    
+    /** For wheel divide into half **/
+    public final static int HALF = 2;
 }
