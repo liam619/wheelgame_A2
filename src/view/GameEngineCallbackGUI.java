@@ -14,10 +14,12 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 
     private StatusBar statusBar;
     private StoreValue storeValue;
+    private WheelDisplay wheelDisplay;
 
-    public GameEngineCallbackGUI(StatusBar statusBar, StoreValue storeValue) {
+    public GameEngineCallbackGUI(StatusBar statusBar, StoreValue storeValue, WheelDisplay wheelDisplay) {
         this.statusBar = statusBar;
         this.storeValue = storeValue;
+        this.wheelDisplay = wheelDisplay;
     }
 
     @Override
@@ -27,6 +29,9 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
             @Override
             public void run() {
                 System.out.println("next slot");
+                wheelDisplay.setDegree();
+                wheelDisplay.repaint();
+//                wheelDisplay.paintComponents(g);
             }
         });
     }

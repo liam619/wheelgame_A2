@@ -22,7 +22,7 @@ public class AppFrame extends JFrame implements ConstantVariable {
         super(APPFRAME_TITLE);
 
         GameEngine gameEngine = new GameEngineImpl();
-
+        
         menuBar = new MenuBar();
         statusBar = new StatusBar();
         storeValue = new StoreValue();
@@ -30,7 +30,7 @@ public class AppFrame extends JFrame implements ConstantVariable {
         wheelDisplay = new WheelDisplay();
 
         GameEngineCallbackImpl gameEngineCallback = new GameEngineCallbackImpl();
-        GameEngineCallbackGUI gameEngineGUI = new GameEngineCallbackGUI(statusBar, storeValue);
+        GameEngineCallbackGUI gameEngineGUI = new GameEngineCallbackGUI(statusBar, storeValue, wheelDisplay);
 
         gameEngine.addGameEngineCallback(gameEngineGUI); // For GUI update
         gameEngine.addGameEngineCallback(gameEngineCallback); // For Console display result
