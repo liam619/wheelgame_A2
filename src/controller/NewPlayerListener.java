@@ -3,22 +3,22 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import model.StoreValue;
 import model.interfaces.GameEngine;
+import view.NewPlayerForm;
 import view.PlayerGUI;
 
-public class PlayerActionListener implements ActionListener {
-
+public class NewPlayerListener implements ActionListener {
+    
     private GameEngine gameEngine;
-    private StoreValue st;
+    private PlayerGUI playerGUI;
 
-    public PlayerActionListener(GameEngine gameEngine, StoreValue st) {
+    public NewPlayerListener(GameEngine gameEngine, PlayerGUI playerGUI) {
         this.gameEngine = gameEngine;
-        this.st = st;
+        this.playerGUI = playerGUI;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        new PlayerGUI(gameEngine, st);
+        new NewPlayerForm(gameEngine, playerGUI);
     }
 }

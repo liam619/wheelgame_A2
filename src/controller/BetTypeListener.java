@@ -7,12 +7,12 @@ import model.StoreValue;
 import model.enumeration.BetType;
 import model.interfaces.Player;
 
-public class PlayerItemListener implements ItemListener {
+public class BetTypeListener implements ItemListener {
     
     private Player ply;
     private StoreValue st;
 
-    public PlayerItemListener(Player ply, StoreValue st) {
+    public BetTypeListener(Player ply, StoreValue st) {
         this.ply = ply;
         this.st = st;
     }
@@ -20,8 +20,8 @@ public class PlayerItemListener implements ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
         if (e.getStateChange() == ItemEvent.SELECTED) {
+            System.out.println(e.getItem().toString());
             st.setBetType(ply, BetType.valueOf(e.getItem().toString()));
         }
     }
-    
 }

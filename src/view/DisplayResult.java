@@ -12,7 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import controller.PlayerActionListener;
+import controller.FrameListener;
 import model.ConstantVariable;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
@@ -57,8 +57,7 @@ public class DisplayResult implements ConstantVariable {
         }
 
         JButton closeBtn = new JButton("Close");
-        closeBtn.setActionCommand(CLOSE_FRAME);
-        closeBtn.addActionListener(new PlayerActionListener(jframe));
+        closeBtn.addActionListener(new FrameListener(jframe));
         btnPanel.add(closeBtn);
 
         contentPanel.add(resultPanel, BorderLayout.PAGE_START);

@@ -11,8 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controller.PlayerActionListener;
-import controller.PlayerItemListener;
+import controller.BetTypeListener;
+import controller.FrameListener;
+import controller.NewPlayerListener;
+import controller.PlaceBetListener;
 import controller.PlayerKeyListener;
 import model.ConstantVariable;
 import model.StoreValue;
@@ -37,16 +39,13 @@ public class PlayerGUI implements ConstantVariable {
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         JButton addNewPlayerBtn = new JButton("Add New Player");
-        addNewPlayerBtn.setActionCommand(NEW_PLAYER);
-        addNewPlayerBtn.addActionListener(new PlayerActionListener(gameEngine, st, this));
+        addNewPlayerBtn.addActionListener(new NewPlayerListener(gameEngine, this));
 
         JButton setBetBtn = new JButton("Place Bet");
-        setBetBtn.setActionCommand(PLACE_BET);
-        setBetBtn.addActionListener(new PlayerActionListener(gameEngine, st));
+        setBetBtn.addActionListener(new PlaceBetListener(gameEngine, st));
 
         JButton closeBtn = new JButton("Close");
-        closeBtn.setActionCommand(CLOSE_FRAME);
-        closeBtn.addActionListener(new PlayerActionListener(jframe));
+        closeBtn.addActionListener(new FrameListener(jframe));
 
         btnPanel.add(addNewPlayerBtn);
         btnPanel.add(setBetBtn);
@@ -81,7 +80,7 @@ public class PlayerGUI implements ConstantVariable {
                 JComboBox<BetType> comboBox = new JComboBox<BetType>(BetType.values());
                 comboBox.setSelectedItem(ply.getBetType());
                 plyTablePanel.add(comboBox);
-                comboBox.addItemListener(new PlayerItemListener(ply, st));
+                comboBox.addItemListener(new BetTypeListener(ply, st));
 
                 plyTablePanel.add(new JLabel("Place bet : "));
                 JTextField jTextF = new JTextField();

@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controller.AddPlayers;
-import controller.PlayerActionListener;
+import controller.FrameListener;
 import controller.PlayerKeyListener;
 import model.ConstantVariable;
 import model.interfaces.GameEngine;
@@ -37,8 +37,7 @@ public class NewPlayerForm implements ConstantVariable {
         btnPanel.add(okBtn);
 
         JButton cancelBtn = new JButton("Cancel");
-        cancelBtn.setActionCommand(CLOSE_FRAME);
-        cancelBtn.addActionListener(new PlayerActionListener(jframe));
+        cancelBtn.addActionListener(new FrameListener(jframe));
         btnPanel.add(cancelBtn);
         
         contentPanel.add(infoPanel);

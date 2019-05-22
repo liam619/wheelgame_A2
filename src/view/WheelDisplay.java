@@ -51,7 +51,7 @@ public class WheelDisplay extends JPanel implements ConstantVariable {
         
         g2d.dispose();
     }
-
+    
     private Point getPointOnCircle(float degress, double circleRadius, double innerCircleRadius) {
         
 //        double rads = Math.toRadians(degress - 90); // 0 becomes the top
@@ -59,7 +59,9 @@ public class WheelDisplay extends JPanel implements ConstantVariable {
         
         System.out.println("radians : " + rads);
         System.out.println("degress : " + degress);
-         
+        
+//        Math.toDegrees(angrad)
+//        Math.toRadians(angdeg)
         // Calculate the outter point of the line
         int xCordinate = Math.round((float) (innerCircleRadius + Math.cos(rads) * circleRadius));
         int yCordinate = Math.round((float) (innerCircleRadius + Math.sin(rads) * circleRadius));
