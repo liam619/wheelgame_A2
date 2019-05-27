@@ -1,38 +1,40 @@
 package model;
 
-import java.util.HashMap;
-
-import model.enumeration.BetType;
-import model.interfaces.Player;
+import model.interfaces.Slot;
+import view.NewPlayerForm;
+import view.PlayerGUI;
 
 public class StoreValue {
     
-    private HashMap<Player, BetType> playerBetType;
-    private HashMap<Player, String> playerBetAmt;
+    private PlayerGUI playerGUI;
+    private NewPlayerForm newPlayerForm;
     
-    public StoreValue() {
-        playerBetType = new HashMap<Player, BetType>();
-        playerBetAmt = new HashMap<Player, String>();
+    private Slot winSlot;
+    
+    /** Store the winning result here, so player can view previous winning result any time **/
+    public void setWinningSlot(Slot winSlot) {
+        this.winSlot = winSlot;
     }
     
-    public void setBetType(Player ply, BetType betType) {
-        this.playerBetType.put(ply, betType);
+    public Slot getWinningSlot() {
+        return this.winSlot;
     }
     
-    public void setBetAmt(Player ply, String betAmt) {
-        this.playerBetAmt.put(ply, betAmt);
+    /** Prevent multiple playerGUI **/
+    public void setPlayerGUI(PlayerGUI playerGUI) {
+        this.playerGUI = playerGUI;
     }
     
-    public HashMap<Player, BetType> getBetType() {
-        return this.playerBetType;
+    public PlayerGUI getPlayerGUI() {
+        return this.playerGUI;
     }
     
-    public HashMap<Player, String> getBetAmt() {
-        return this.playerBetAmt;
+    /** Prevent multiple add new player form **/
+    public void setNewPlayerForm(NewPlayerForm newPlayerForm) {
+        this.newPlayerForm = newPlayerForm;
     }
     
-    public void clearBet() {
-        this.playerBetAmt.clear();
-        this.playerBetType.clear();
+    public NewPlayerForm getNewPlayerForm() {
+        return this.newPlayerForm;
     }
 }

@@ -17,6 +17,7 @@ public class StatusBar extends JPanel implements ConstantVariable {
 
     public StatusBar() {
         
+        /** Display the winning result at the bottom of frame **/
         statusColor = new JLabel(WIN_COLOR);
         statusNumber = new JLabel(WIN_NUMBER);
         

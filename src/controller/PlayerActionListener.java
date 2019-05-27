@@ -11,6 +11,7 @@ public class PlayerActionListener implements ActionListener {
 
     private GameEngine gameEngine;
     private StoreValue st;
+    private PlayerGUI playerGUI;
 
     public PlayerActionListener(GameEngine gameEngine, StoreValue st) {
         this.gameEngine = gameEngine;
@@ -19,6 +20,9 @@ public class PlayerActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        new PlayerGUI(gameEngine, st);
+        if (st.getPlayerGUI() == null) {
+            playerGUI = new PlayerGUI(gameEngine, st);
+            st.setPlayerGUI(playerGUI);
+        }
     }
 }

@@ -16,6 +16,10 @@ public interface ConstantVariable {
     public final static String APPFRAME_TITLE = "Wheel Game";
     public final static String PLAYERGUI_TITLE = "Player GUI";
     public final static String ADDNEWPLAYER_TITLE = "Add New Player";
+    public final static String ADDNEWPLAYER_ERROR = "ERROR OCCUR!";
+    
+    /** Error Message **/
+    public final static String ADD_NEW_PLAYER_MSG = "Name or Point cannot be empty!";
     
     /** Image location **/
     public final static String IMAGE_LOCATION = "img/Basic_roulette_wheel_1024x1024.png";

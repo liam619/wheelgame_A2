@@ -13,11 +13,13 @@ import controller.AddPlayers;
 import controller.FrameListener;
 import controller.PlayerKeyListener;
 import model.ConstantVariable;
+import model.StoreValue;
 import model.interfaces.GameEngine;
 
 public class NewPlayerForm implements ConstantVariable {
 
-    public NewPlayerForm(GameEngine gameEngine, PlayerGUI playerGUI) {
+    /** The add new player form **/
+    public NewPlayerForm(GameEngine gameEngine, StoreValue st) {
         JFrame jframe = new JFrame();
         JPanel contentPanel = new JPanel(new GridLayout(2, 0));
         JPanel infoPanel = new JPanel(new GridLayout(2, 2));
@@ -33,11 +35,11 @@ public class NewPlayerForm implements ConstantVariable {
         pointJTF.addKeyListener(new PlayerKeyListener());
 
         JButton okBtn = new JButton("OK");
-        okBtn.addActionListener(new AddPlayers(nameJTF, pointJTF, jframe, playerGUI, gameEngine));
+        okBtn.addActionListener(new AddPlayers(nameJTF, pointJTF, jframe, st, gameEngine));
         btnPanel.add(okBtn);
 
         JButton cancelBtn = new JButton("Cancel");
-        cancelBtn.addActionListener(new FrameListener(jframe));
+        cancelBtn.addActionListener(new FrameListener(jframe, st));
         btnPanel.add(cancelBtn);
         
         contentPanel.add(infoPanel);

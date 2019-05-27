@@ -7,26 +7,28 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import model.ConstantVariable;
 import model.SimplePlayer;
+import model.StoreValue;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
 import view.PlayerGUI;
 
-public class AddPlayers implements ActionListener {
+public class AddPlayers implements ActionListener, ConstantVariable {
 
     private GameEngine gameEngine;
     private JTextField nameJTF;
     private JTextField pointJTF;
     private JFrame jframe;
     private int idCount;
-    private PlayerGUI playerGUI;
+    private StoreValue st;
 
-    public AddPlayers(JTextField nameJTF, JTextField pointJTF, JFrame jframe, PlayerGUI playerGUI, GameEngine gameEngine) {
+    public AddPlayers(JTextField nameJTF, JTextField pointJTF, JFrame jframe, StoreValue st, GameEngine gameEngine) {
         this.nameJTF = nameJTF;
         this.pointJTF = pointJTF;
         this.jframe = jframe;
         this.gameEngine = gameEngine;
-        this.playerGUI = playerGUI;
+        this.st = st;
     }
 
     @Override
@@ -35,19 +37,26 @@ public class AddPlayers implements ActionListener {
     }
 
     public void initialize(String name, String point) {
-        idCount = gameEngine.getAllPlayers().size();
+        idCount = gameEngine.getAllPlayers().size(); // probably need change
 
-        if (name.length() > 0 && Integer.parseInt(point) > 0 && this.gameEngine != null) {
-            idCount = (idCount != 0) ? ++idCount : 1;
+        if (name.length() > 0 && point.length() > 0) {
+            if (Integer.parseInt(point) > 0 && this.gameEngine != null) {
+                idCount = (idCount != 0) ? ++idCount : 1;
 
-            Player ply = new SimplePlayer(String.valueOf(idCount), name, Integer.parseInt(point));
+                Player ply = new SimplePlayer(String.valueOf(idCount), name, Integer.parseInt(point));
 
-            this.gameEngine.addPlayer(ply);
-            
-            playerGUI.redraw();
-            jframe.setVisible(false);
+                this.gameEngine.addPlayer(ply); // Still add player even the form is closed.
+
+                /** If playerGUI form is close, there is no need to redraw be called **/
+                if (st.getPlayerGUI() != null) {
+                    st.getPlayerGUI().redraw();
+                    st.setNewPlayerForm(null);
+                }
+
+                jframe.setVisible(false); // Close the add player form after add new player.
+            }
         } else {
-            JOptionPane.showMessageDialog(null, "Name or Point cannot be empty!", "ERROR OCCUR!", 0);
+            JOptionPane.showMessageDialog(null, ADD_NEW_PLAYER_MSG, ADDNEWPLAYER_ERROR, 0);
         }
     }
 }

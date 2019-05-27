@@ -1,7 +1,6 @@
 package client;
 
 import javax.swing.SwingUtilities;
-
 import view.AppFrame;
 
 public class Application {

@@ -13,6 +13,7 @@ import java.awt.FlowLayout;
 import model.GameEngineImpl;
 import model.enumeration.BetType;
 import model.interfaces.GameEngine;
+import model.interfaces.Slot;
 
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
@@ -25,9 +26,17 @@ public class Test extends JFrame {
 
     public static void main(String[] args) {
         
-        GameEngine ge = new GameEngineImpl();
         
-        System.out.println(ge.getAllPlayers().size());
+        
+        int de = 1;
+        
+        for(int x=0; x <= 360; x++) {
+            double rads = ((Math.PI * de) / Slot.WHEEL_SIZE);
+            System.out.println("Rads : " + rads +"| Degree : "+ de);
+            System.out.println("Cos : " +Math.cos(rads) +"| Sin : "+ Math.sin(rads));
+            
+            de += 2;
+        }
         
         
         

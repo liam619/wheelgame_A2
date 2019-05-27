@@ -28,8 +28,7 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 
             @Override
             public void run() {
-                System.out.println("next slot");
-                wheelDisplay.setDegree();
+                wheelDisplay.setDegree(slot.getPosition());
                 wheelDisplay.repaint();
             }
         });
@@ -37,7 +36,12 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
 
     @Override
     public void result(Slot winningSlot, GameEngine engine) {
-        DisplayResult display = new DisplayResult(winningSlot, engine);
+        wheelDisplay.setDegree(winningSlot.getPosition());
+        wheelDisplay.repaint();
+        
+        storeValue.setWinningSlot(winningSlot);
+        
+        DisplayResult display = new DisplayResult(storeValue, engine);
 
         statusBar.setWinColor(String.valueOf(winningSlot.getColor()));
         statusBar.setWinNumber(String.valueOf(winningSlot.getNumber()));
@@ -51,8 +55,6 @@ public class GameEngineCallbackGUI implements GameEngineCallback {
     private void resetBet(Collection<Player> plyList) {
 
         if (plyList.size() > 0) {
-            storeValue.clearBet();
-            
             for (Player ply : plyList) {
                 ply.resetBet();
             }

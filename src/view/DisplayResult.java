@@ -14,19 +14,19 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.FrameListener;
 import model.ConstantVariable;
+import model.StoreValue;
 import model.interfaces.GameEngine;
 import model.interfaces.Player;
-import model.interfaces.Slot;
 
 public class DisplayResult implements ConstantVariable {
 
-    private Slot winningSlot;
+    private StoreValue storeValue;
     private GameEngine gameEngine;
     private DefaultTableModel model;
 
-    public DisplayResult(Slot winningSlot, GameEngine gameEngine) {
-        this.winningSlot = winningSlot;
+    public DisplayResult(StoreValue storeValue, GameEngine gameEngine) {
         this.gameEngine = gameEngine;
+        this.storeValue = storeValue;
     }
 
     public void initFrame() {
@@ -35,16 +35,29 @@ public class DisplayResult implements ConstantVariable {
         JPanel contentPanel = new JPanel(new BorderLayout());
         JPanel resultPanel = new JPanel(new GridLayout(0, 6));
         JPanel btnPanel = new JPanel();
+        
+        String position = "";
+        String color = "";
+        String number = "";
+        
+        /** The result of spin regardless if there is player or bet **/
+        if(storeValue.getWinningSlot() != null) {
+            position = String.valueOf(storeValue.getWinningSlot().getPosition());
+            color = String.valueOf(storeValue.getWinningSlot().getColor());
+            number = String.valueOf(storeValue.getWinningSlot().getNumber());
+        }
 
         resultPanel.add(new JLabel("Position : "));
-        resultPanel.add(new JLabel(String.valueOf(winningSlot.getPosition())));
+        resultPanel.add(new JLabel(position));
         resultPanel.add(new JLabel("Color : "));
-        resultPanel.add(new JLabel(String.valueOf(winningSlot.getColor())));
+        resultPanel.add(new JLabel(color));
         resultPanel.add(new JLabel("Number : "));
-        resultPanel.add(new JLabel(String.valueOf(winningSlot.getNumber())));
+        resultPanel.add(new JLabel(number));
 
+        /** If player exist, then will model the table **/
         if (gameEngine.getAllPlayers().size() > 0) {
             
+            /** Column name for player table **/
             String[] colName = { "ID", "Name", "Bet Amount", "Bet Colour", "Points" };
             
             model = new DefaultTableModel();
@@ -71,6 +84,7 @@ public class DisplayResult implements ConstantVariable {
         jframe.setLocationRelativeTo(null);
      }
 
+    /** Display table in the result frame **/
     public void getTableData() {
 
         for (Player ply : gameEngine.getAllPlayers()) {

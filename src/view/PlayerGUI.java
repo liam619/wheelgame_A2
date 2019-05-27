@@ -11,11 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controller.BetTypeListener;
 import controller.FrameListener;
 import controller.NewPlayerListener;
 import controller.PlaceBetListener;
 import controller.PlayerKeyListener;
+import controller.RemovePlayerListener;
 import model.ConstantVariable;
 import model.StoreValue;
 import model.enumeration.BetType;
@@ -28,27 +28,22 @@ public class PlayerGUI implements ConstantVariable {
     private JPanel plyTablePanel;
     private JPanel contentPanel;
     private GameEngine gameEngine;
-    private StoreValue st;
 
+    /** Main frame of the player view **/
     public PlayerGUI(GameEngine gameEngine, StoreValue st) {
         this.gameEngine = gameEngine;
-        this.st = st;
 
         jframe = new JFrame();
         contentPanel = new JPanel(new GridLayout(2, 0));
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         JButton addNewPlayerBtn = new JButton("Add New Player");
-        addNewPlayerBtn.addActionListener(new NewPlayerListener(gameEngine, this));
-
-        JButton setBetBtn = new JButton("Place Bet");
-        setBetBtn.addActionListener(new PlaceBetListener(gameEngine, st));
+        addNewPlayerBtn.addActionListener(new NewPlayerListener(gameEngine, st));
 
         JButton closeBtn = new JButton("Close");
-        closeBtn.addActionListener(new FrameListener(jframe));
+        closeBtn.addActionListener(new FrameListener(jframe, st));
 
         btnPanel.add(addNewPlayerBtn);
-        btnPanel.add(setBetBtn);
         btnPanel.add(closeBtn);
 
         contentPanel.add(initPlayerTable());
@@ -62,6 +57,7 @@ public class PlayerGUI implements ConstantVariable {
         jframe.setResizable(false);
     }
 
+    /** After add player, will display this part, for bet type, bet amount and player info with removable function **/
     public JPanel initPlayerTable() {
         plyTablePanel = new JPanel();
         Collection<Player> playerList = gameEngine.getAllPlayers();
@@ -80,13 +76,20 @@ public class PlayerGUI implements ConstantVariable {
                 JComboBox<BetType> comboBox = new JComboBox<BetType>(BetType.values());
                 comboBox.setSelectedItem(ply.getBetType());
                 plyTablePanel.add(comboBox);
-                comboBox.addItemListener(new BetTypeListener(ply, st));
 
                 plyTablePanel.add(new JLabel("Place bet : "));
                 JTextField jTextF = new JTextField();
                 jTextF.setText(String.valueOf(ply.getBet()));
                 plyTablePanel.add(jTextF);
-                jTextF.addKeyListener(new PlayerKeyListener(ply, jTextF, st));
+                jTextF.addKeyListener(new PlayerKeyListener());
+                
+                JButton betBtn = new JButton("BET");
+                betBtn.addActionListener(new PlaceBetListener(ply, gameEngine, comboBox, jTextF));
+                plyTablePanel.add(betBtn);
+                
+                JButton removeBtn = new JButton("REMOVE");
+                removeBtn.addActionListener(new RemovePlayerListener(ply, gameEngine, this));
+                plyTablePanel.add(removeBtn);
             }
         } else {
             plyTablePanel.add(new JLabel("No player in game."));
@@ -95,6 +98,7 @@ public class PlayerGUI implements ConstantVariable {
         return plyTablePanel;
     }
 
+    /** Redraw after add or remove player **/
     public void redraw() {
         contentPanel.remove(plyTablePanel);
         contentPanel.add(initPlayerTable(), 0, 0);
