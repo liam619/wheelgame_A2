@@ -1,8 +1,11 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import model.ConstantVariable;
 import model.GameEngineImpl;
@@ -16,35 +19,53 @@ public class AppFrame extends JFrame implements ConstantVariable {
     private StatusBar statusBar;
     private ToolBar toolBar;
     private WheelDisplay wheelDisplay;
+    private SummaryPanel summaryPanel;
     private StoreValue storeValue;
 
     public AppFrame() {
         super(APPFRAME_TITLE);
 
+        /** Calculate the minimum size of frame **/
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        int height = (int) (d.height * MIN_HEIGHT);
+        int width = (int) (d.width * MIN_WIDTH);
+
         GameEngine gameEngine = new GameEngineImpl();
 
-        menuBar = new MenuBar();
         statusBar = new StatusBar();
         storeValue = new StoreValue();
-        toolBar = new ToolBar(gameEngine, storeValue);
+        summaryPanel = new SummaryPanel();
         wheelDisplay = new WheelDisplay(gameEngine);
 
-//        GameEngineCallbackImpl gameEngineCallback = new GameEngineCallbackImpl();
-        GameEngineCallbackGUI gameEngineGUI = new GameEngineCallbackGUI(statusBar, storeValue, wheelDisplay);
+        toolBar = new ToolBar(gameEngine, storeValue);
+        menuBar = new MenuBar(gameEngine, storeValue);
+
+        storeValue.setSummaryPanel(summaryPanel);
+        storeValue.setStatusBar(statusBar);
+        storeValue.setWheelDisplay(wheelDisplay);
+        storeValue.setMenuBar(menuBar);
+        storeValue.setToolBar(toolBar);
+
+        GameEngineCallbackImpl gameEngineCallback = new GameEngineCallbackImpl();
+        GameEngineCallbackGUI gameEngineGUI = new GameEngineCallbackGUI(storeValue);
 
         gameEngine.addGameEngineCallback(gameEngineGUI); // For GUI update
-//        gameEngine.addGameEngineCallback(gameEngineCallback); // For Console display result
+        gameEngine.addGameEngineCallback(gameEngineCallback); // For Console display
         gameEngine.getWheelSlots();
 
         setJMenuBar(menuBar);
         add(toolBar, BorderLayout.NORTH);
         add(wheelDisplay, BorderLayout.CENTER);
-        add(statusBar, BorderLayout.SOUTH);
+
+        JPanel groupSouth = new JPanel(new BorderLayout());
+        groupSouth.add(summaryPanel, BorderLayout.NORTH);
+        groupSouth.add(statusBar, BorderLayout.SOUTH);
+
+        add(groupSouth, BorderLayout.SOUTH);
 
         pack();
         setVisible(true);
-        setSize(700, 700);
-        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(width, height)); // Minimum size of the frame
     }
 }

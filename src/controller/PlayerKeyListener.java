@@ -4,19 +4,15 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JTextField;
-
-import model.StoreValue;
-import model.interfaces.Player;
-
 public class PlayerKeyListener implements KeyListener {
 
+    /** Prevent user key in non numeric character **/
     @Override
     public void keyTyped(KeyEvent e) {
         char c = e.getKeyChar();
         if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
             e.consume();
-            Toolkit.getDefaultToolkit().beep();
+            Toolkit.getDefaultToolkit().beep(); // Alert sound when invalid character capture!
         }
     }
 

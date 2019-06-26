@@ -27,21 +27,26 @@ public class PlayerGUI implements ConstantVariable {
     private JFrame jframe;
     private JPanel plyTablePanel;
     private JPanel contentPanel;
+    
     private GameEngine gameEngine;
+    private StoreValue storeValue;
 
     /** Main frame of the player view **/
-    public PlayerGUI(GameEngine gameEngine, StoreValue st) {
+    public PlayerGUI(GameEngine gameEngine, StoreValue storeValue) {
         this.gameEngine = gameEngine;
+        this.storeValue = storeValue;
 
         jframe = new JFrame();
         contentPanel = new JPanel(new GridLayout(2, 0));
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
+        /** Allow add new player **/
         JButton addNewPlayerBtn = new JButton("Add New Player");
-        addNewPlayerBtn.addActionListener(new NewPlayerListener(gameEngine, st));
+        addNewPlayerBtn.addActionListener(new NewPlayerListener(gameEngine, storeValue));
 
+        /** Close the current frame **/
         JButton closeBtn = new JButton("Close");
-        closeBtn.addActionListener(new FrameListener(jframe, st));
+        closeBtn.addActionListener(new FrameListener(jframe, storeValue));
 
         btnPanel.add(addNewPlayerBtn);
         btnPanel.add(closeBtn);
@@ -84,11 +89,11 @@ public class PlayerGUI implements ConstantVariable {
                 jTextF.addKeyListener(new PlayerKeyListener());
                 
                 JButton betBtn = new JButton("BET");
-                betBtn.addActionListener(new PlaceBetListener(ply, gameEngine, comboBox, jTextF));
+                betBtn.addActionListener(new PlaceBetListener(ply, gameEngine, comboBox, jTextF, storeValue));
                 plyTablePanel.add(betBtn);
                 
                 JButton removeBtn = new JButton("REMOVE");
-                removeBtn.addActionListener(new RemovePlayerListener(ply, gameEngine, this));
+                removeBtn.addActionListener(new RemovePlayerListener(ply, this.storeValue, gameEngine, this));
                 plyTablePanel.add(removeBtn);
             }
         } else {
@@ -106,5 +111,10 @@ public class PlayerGUI implements ConstantVariable {
         contentPanel.repaint();
         jframe.pack();
         jframe.setLocationRelativeTo(null);
+    }
+    
+    /** Close this frame upon all player placed bet **/
+    public void closeFrame() {
+        jframe.setVisible(false);
     }
 }

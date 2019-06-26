@@ -1,7 +1,5 @@
 package view;
 
-import java.util.Collection;
-
 import javax.swing.SwingUtilities;
 
 import model.StoreValue;
@@ -12,52 +10,60 @@ import view.interfaces.GameEngineCallback;
 
 public class GameEngineCallbackGUI implements GameEngineCallback {
 
-    private StatusBar statusBar;
     private StoreValue storeValue;
-    private WheelDisplay wheelDisplay;
 
-    public GameEngineCallbackGUI(StatusBar statusBar, StoreValue storeValue, WheelDisplay wheelDisplay) {
-        this.statusBar = statusBar;
+    public GameEngineCallbackGUI(StoreValue storeValue) {
         this.storeValue = storeValue;
-        this.wheelDisplay = wheelDisplay;
     }
 
     @Override
     public void nextSlot(Slot slot, GameEngine engine) {
+        /** Disable all the button and menu **/
+        storeValue.getToolBar().setDisableBtn();
+        storeValue.getMenuBar().setDisableMenu();
+        
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                wheelDisplay.setDegree(slot.getPosition());
-                wheelDisplay.repaint();
+                storeValue.getWheelDisplay().redraw(slot.getPosition());
+                updateStatusbar(slot); // Run like spinning machine!
             }
         });
     }
 
     @Override
     public void result(Slot winningSlot, GameEngine engine) {
-        wheelDisplay.setDegree(winningSlot.getPosition());
-        wheelDisplay.repaint();
-        
-        storeValue.setWinningSlot(winningSlot);
-        
-        DisplayResult display = new DisplayResult(storeValue, engine);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                /** Enable all the button and menu **/
+                storeValue.getToolBar().setEnableBtn();
+                storeValue.getMenuBar().setEnableMenu();
 
-        statusBar.setWinColor(String.valueOf(winningSlot.getColor()));
-        statusBar.setWinNumber(String.valueOf(winningSlot.getNumber()));
-
-        engine.calculateResult(winningSlot);
-
-        display.initFrame();
-        resetBet(engine.getAllPlayers());
+                /** Draw the winning slot **/
+                storeValue.getWheelDisplay().redraw(winningSlot.getPosition());
+                engine.calculateResult(winningSlot);
+                
+                /** Update the frame (Summary and Status bar) **/
+                storeValue.getSummaryPanel().displayPlayerSummary(engine);
+                updateStatusbar(winningSlot);
+                resetBet(engine);
+            }
+        });
     }
 
-    private void resetBet(Collection<Player> plyList) {
-
-        if (plyList.size() > 0) {
-            for (Player ply : plyList) {
-                ply.resetBet();
-            }
+    /** Update Summary panel with all the player info **/
+    private void resetBet(GameEngine engine) {
+        for (Player ply : engine.getAllPlayers()) {
+            ply.resetBet();
         }
+    }
+
+    /** Update the Status bar with the winning slot **/
+    private void updateStatusbar(Slot slot) {
+        storeValue.getStatusBar().setWinColor(slot.getColor().toString());
+        storeValue.getStatusBar().setWinNumber(String.valueOf(slot.getNumber()));
+        storeValue.getStatusBar().setWinPosition(String.valueOf(slot.getPosition()));
     }
 }

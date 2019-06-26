@@ -18,6 +18,7 @@ public class PlayerActionListener implements ActionListener {
         this.st = st;
     }
 
+    /** Display the Player GUI **/
     @Override
     public void actionPerformed(ActionEvent e) {
         if (st.getPlayerGUI() == null) {

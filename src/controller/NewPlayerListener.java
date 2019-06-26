@@ -18,6 +18,7 @@ public class NewPlayerListener implements ActionListener {
         this.st = st;
     }
 
+    /** Display Add New Player form **/
     @Override
     public void actionPerformed(ActionEvent e) {
         if (st.getNewPlayerForm() == null) {

@@ -13,17 +13,20 @@ import model.interfaces.GameEngine;
 import model.interfaces.Player;
 
 public class PlaceBetListener implements ActionListener {
-
-    private GameEngine gameEngine;
+    
     private Player player;
-    private JComboBox<BetType> comboBox;
-    private JTextField jTextF;
-
-    public PlaceBetListener(Player player, GameEngine gameEngine, JComboBox<BetType> comboBox, JTextField jTextF) {
+    private GameEngine gameEngine;
+    private StoreValue storeValue;
+   
+    private JTextField betAmount;
+    private JComboBox<BetType> betType;
+   
+    public PlaceBetListener(Player player, GameEngine gameEngine, JComboBox<BetType> betType, JTextField betAmount, StoreValue storeValue) {
         this.player = player;
         this.gameEngine = gameEngine;
-        this.comboBox = comboBox;
-        this.jTextF = jTextF;
+        this.betType = betType;
+        this.betAmount = betAmount;
+        this.storeValue = storeValue;
     }
 
     @Override
@@ -34,12 +37,15 @@ public class PlaceBetListener implements ActionListener {
     private void validateBet() {
         boolean valid = false;
         
-        if (jTextF.getText().length() > 0 && comboBox.getSelectedItem() != null) {
-            if (Integer.valueOf(jTextF.getText()) > 0) {
-                valid = gameEngine.placeBet(player, Integer.valueOf(jTextF.getText()), BetType.valueOf(comboBox.getSelectedItem().toString()));
+        /** Validate before place bet **/
+        if (betAmount.getText().length() > 0 && betType.getSelectedItem() != null) {
+            if (Integer.valueOf(betAmount.getText()) > 0) {
+                valid = gameEngine.placeBet(player, Integer.valueOf(betAmount.getText()), BetType.valueOf(betType.getSelectedItem().toString()));
                 
                 if(valid) {
                     JOptionPane.showMessageDialog(null, "Bet Placed.", "Success.", 1);
+                    
+                    prepareForSpin(gameEngine);
                 } else {
                     JOptionPane.showMessageDialog(null, "Insufficient points!", "Failed.", 0);
                 }
@@ -48,6 +54,23 @@ public class PlaceBetListener implements ActionListener {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Invalid bet!", "Failed.", 0);
+        }
+    }
+    
+    /** Check if all player place bet **/
+    private void prepareForSpin(GameEngine gameEngine) {
+        int count = 0;
+        for(Player ply : gameEngine.getAllPlayers()) {
+            if(ply.getBet() > 0) {
+                count++;
+            }
+        }
+        
+        /** Auto spin happen when count match allPlayer size **/
+        if(count == gameEngine.getAllPlayers().size()) {
+            new PerformSpin(gameEngine);
+            storeValue.getPlayerGUI().closeFrame();
+            storeValue.setPlayerGUI(null);
         }
     }
 }

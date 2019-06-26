@@ -23,8 +23,8 @@ public class FrameListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.jframe.setVisible(false);
-        
+        this.jframe.setVisible(false); // Close the frame
+
         if (st != null) {
             st.setPlayerGUI(null);
             st.setNewPlayerForm(null);

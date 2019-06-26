@@ -1,24 +1,23 @@
 package model;
 
-import model.interfaces.Slot;
+import view.MenuBar;
 import view.NewPlayerForm;
 import view.PlayerGUI;
+import view.StatusBar;
+import view.SummaryPanel;
+import view.ToolBar;
+import view.WheelDisplay;
 
 public class StoreValue {
     
     private PlayerGUI playerGUI;
     private NewPlayerForm newPlayerForm;
     
-    private Slot winSlot;
-    
-    /** Store the winning result here, so player can view previous winning result any time **/
-    public void setWinningSlot(Slot winSlot) {
-        this.winSlot = winSlot;
-    }
-    
-    public Slot getWinningSlot() {
-        return this.winSlot;
-    }
+    private SummaryPanel summaryPanel;
+    private StatusBar statusBar;
+    private WheelDisplay wheelDisplay;
+    private MenuBar menuBar;
+    private ToolBar toolBar;
     
     /** Prevent multiple playerGUI **/
     public void setPlayerGUI(PlayerGUI playerGUI) {
@@ -36,5 +35,46 @@ public class StoreValue {
     
     public NewPlayerForm getNewPlayerForm() {
         return this.newPlayerForm;
+    }
+    
+    /** For multiplace usage **/
+    public void setSummaryPanel(SummaryPanel summaryPanel) {
+        this.summaryPanel = summaryPanel;
+    }
+    
+    public SummaryPanel getSummaryPanel() {
+        return this.summaryPanel;
+    }
+    
+    public void setStatusBar(StatusBar statusBar) {
+        this.statusBar = statusBar;
+    }
+    
+    public StatusBar getStatusBar() {
+        return this.statusBar;
+    }
+
+    public void setWheelDisplay(WheelDisplay wheelDisplay) {
+        this.wheelDisplay = wheelDisplay;
+    }
+    
+    public WheelDisplay getWheelDisplay() {
+        return this.wheelDisplay;
+    }
+    
+    public void setMenuBar(MenuBar menuBar) {
+        this.menuBar = menuBar;
+    }
+    
+    public MenuBar getMenuBar() {
+        return this.menuBar;
+    }
+    
+    public void setToolBar(ToolBar toolBar) {
+        this.toolBar = toolBar;
+    }
+    
+    public ToolBar getToolBar() {
+        return this.toolBar;
     }
 }
